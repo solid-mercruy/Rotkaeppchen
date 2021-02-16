@@ -25,6 +25,7 @@ public class Position {
     public void setY (int y){
         this.y = y;
     }
+
     @Override
     public boolean equals(Object o){
         if (o instanceof Position)
