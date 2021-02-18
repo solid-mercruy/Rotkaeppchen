@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Random;
 
 public class FairyTaleWorld {
@@ -15,6 +16,12 @@ public class FairyTaleWorld {
 
     //Constructor:
     public FairyTaleWorld(int x, int y, int dangerNumber, int treeNumber) {
+        if (dangerNumber + treeNumber > x * y - 3){
+            throw new IllegalArgumentException("Reduce the number of trees and dangers");
+        }
+        if (x<10 || y<10){
+            throw new IllegalArgumentException("Enlarge the enchanted forest");
+        }
         this.x = x;
         this.y = y;
         map = new VerwunschenerWald[y][x];
@@ -41,12 +48,16 @@ public class FairyTaleWorld {
 
     private Position getRandPos() {
         Position position;
-        while (true) {
-             position = new Position(getRandInt(0, x), getRandInt(0, y));
-            if (map[position.getY()][position.getX()] == null) {
-                break;
-            }
-        }
+        do {
+            position = new Position(getRandInt(0, x), getRandInt(0, y));
+        } while (map[position.getY()][position.getX()] != null);
         return position;
+    }
+
+    public ArrayList<Position> findPath(Position goal){
+        ArrayList<Position> trackedPath = new ArrayList<>();
+            trackedPath.add(goal);
+
+        return trackedPath;
     }
 }
